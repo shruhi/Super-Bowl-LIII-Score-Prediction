@@ -63,7 +63,7 @@ summary(data)
 pairs(data)
 ```
 
-![](Super_Bowl_LIII_files/figure-markdown_github/Read%20Data-1.png)
+![](Super_Bowl_LIII_files/figure-markdown_github/ReadData-1.png)
 
 ### 2. Assumptions for a regression
 
@@ -77,17 +77,17 @@ It means that the variance of the dependent variable(Y) is the same for all valu
 
 ### For Team Score
 
-![](Super_Bowl_LIII_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](Super_Bowl_LIII_files/figure-markdown_github/TStest-1.png)
 
 #### For Opponent Score
 
-![](Super_Bowl_LIII_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](Super_Bowl_LIII_files/figure-markdown_github/OSTest-1.png)
 
 > Multicolinearity
 
 If any of the variables are correlated, it gives causes a problem in our regression model. To verfiy that they are not correlate, we use a simple correlation matrix.
 
-![](Super_Bowl_LIII_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](Super_Bowl_LIII_files/figure-markdown_github/corrplot-1.png)
 
 We don't want correlated variables and total yards for both team and opponent are highly correlated. We won't be using them in our model.
 Our requirements to do a linear regression are satisfied!
@@ -96,7 +96,8 @@ Our requirements to do a linear regression are satisfied!
 
 #### 3.1 Creating training, validation and testing sets
 
-80%-10%-10% split into training, validation and testing sets
+Since this is a relatively smaller dataset, we split it by 80%-10%-10% into training, validation and testing sets. The regression is trained on training set, predicted values for a combination of scores is run on the validation set and finally, a final result is obtained using the test set.
+
 ``` r
 train   <- 0.8
 validate <- 0.1
@@ -138,85 +139,85 @@ summary(m2)
     ## 
     ## Residuals:
     ##      Min       1Q   Median       3Q      Max 
-    ## -21.3279  -3.5917   0.2754   3.7861  19.2760 
+    ## -19.8854  -3.6616   0.3273   3.6887  17.4710 
     ## 
     ## Coefficients:
     ##                               Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)                  -4.836496   3.231076  -1.497   0.1353    
-    ## TeamAtlanta Falcons          -1.330373   2.796430  -0.476   0.6346    
-    ## TeamBaltimore Ravens         -0.591375   2.591944  -0.228   0.8197    
-    ## TeamBuffalo Bills            -2.338904   2.620151  -0.893   0.3726    
-    ## TeamCarolina Panthers        -2.331119   2.602159  -0.896   0.3709    
-    ## TeamChicago Bears            -1.851075   2.657109  -0.697   0.4865    
-    ## TeamCincinnati Bengals        1.354884   2.593653   0.522   0.6017    
-    ## TeamCleveland Browns         -2.382220   2.642634  -0.901   0.3680    
-    ## TeamDallas Cowboys           -1.491292   2.548956  -0.585   0.5589    
-    ## TeamDenver Broncos           -6.391813   2.651189  -2.411   0.0164 *  
-    ## TeamDetroit Lions            -2.517062   2.883913  -0.873   0.3834    
-    ## TeamGreen Bay Packers        -0.372002   2.676141  -0.139   0.8895    
-    ## TeamHouston Texans           -1.441238   2.765879  -0.521   0.6026    
-    ## TeamIndianapolis Colts        0.242270   2.546800   0.095   0.9243    
-    ## TeamJacksonville Jaguars     -2.837678   2.736115  -1.037   0.3004    
-    ## TeamKansas City Chiefs        5.820100   2.653893   2.193   0.0290 *  
-    ## TeamLos Angeles Chargers      3.087470   2.545140   1.213   0.2259    
-    ## TeamLos Angeles Rams          3.347634   2.577962   1.299   0.1949    
-    ## TeamMiami Dolphins            0.663384   2.649874   0.250   0.8025    
-    ## TeamMinnesota Vikings        -0.823784   2.682785  -0.307   0.7590    
-    ## TeamNew England Patriots     -0.990652   2.587302  -0.383   0.7020    
-    ## TeamNew Orleans Saints        4.023591   2.579337   1.560   0.1197    
-    ## TeamNew York Giants          -0.826405   2.757642  -0.300   0.7646    
-    ## TeamNew York Jets             3.985236   2.688919   1.482   0.1392    
-    ## TeamOakland Raiders          -1.875911   2.710056  -0.692   0.4893    
-    ## TeamPhiladelphia Eagles      -0.975677   2.544042  -0.384   0.7016    
-    ## TeamPittsburgh Steelers       2.955855   2.690306   1.099   0.2726    
-    ## TeamSan Francisco 49ers       1.047685   2.655078   0.395   0.6934    
-    ## TeamSeattle Seahawks          0.392265   2.626685   0.149   0.8814    
-    ## TeamTampa Bay Buccaneers     -0.926585   2.811188  -0.330   0.7419    
-    ## TeamTennessee Titans         -1.554790   2.650671  -0.587   0.5579    
-    ## TeamWashington Redskins      -0.533590   2.632182  -0.203   0.8395    
-    ## OpponentAtlanta Falcons       1.884294   2.825429   0.667   0.5053    
-    ## OpponentBaltimore Ravens      2.515539   3.135058   0.802   0.4229    
-    ## OpponentBuffalo Bills         4.393936   2.831073   1.552   0.1215    
-    ## OpponentCarolina Panthers     1.250782   2.876903   0.435   0.6640    
-    ## OpponentChicago Bears         2.608435   2.811806   0.928   0.3542    
-    ## OpponentCincinnati Bengals    2.343117   2.694644   0.870   0.3851    
-    ## OpponentCleveland Browns     -0.341568   2.745278  -0.124   0.9011    
-    ## OpponentDallas Cowboys        1.113357   2.669769   0.417   0.6769    
-    ## OpponentDenver Broncos       -0.512979   2.861930  -0.179   0.8578    
-    ## OpponentDetroit Lions         2.391958   2.796716   0.855   0.3930    
-    ## OpponentGreen Bay Packers     3.633869   2.761634   1.316   0.1891    
-    ## OpponentHouston Texans        1.450364   2.782579   0.521   0.6025    
-    ## OpponentIndianapolis Colts    0.850901   2.854235   0.298   0.7658    
-    ## OpponentJacksonville Jaguars -0.871257   2.718025  -0.321   0.7487    
-    ## OpponentKansas City Chiefs    0.661608   2.742614   0.241   0.8095    
-    ## OpponentLos Angeles Chargers  0.716129   2.670789   0.268   0.7888    
-    ## OpponentLos Angeles Rams      3.146170   2.740552   1.148   0.2517    
-    ## OpponentMiami Dolphins        6.826700   2.998705   2.277   0.0234 *  
-    ## OpponentMinnesota Vikings     1.739921   2.809075   0.619   0.5361    
-    ## OpponentNew England Patriots -0.633819   2.942289  -0.215   0.8296    
-    ## OpponentNew Orleans Saints    2.310423   2.832569   0.816   0.4152    
-    ## OpponentNew York Giants       4.572714   2.809040   1.628   0.1044    
-    ## OpponentNew York Jets         5.542482   2.749269   2.016   0.0446 *  
-    ## OpponentOakland Raiders       2.163090   2.840958   0.761   0.4469    
-    ## OpponentPhiladelphia Eagles  -2.240022   2.703766  -0.828   0.4080    
-    ## OpponentPittsburgh Steelers   0.794358   2.828029   0.281   0.7790    
-    ## OpponentSan Francisco 49ers   4.752699   2.928209   1.623   0.1055    
-    ## OpponentSeattle Seahawks      3.628301   2.803159   1.294   0.1964    
-    ## OpponentTampa Bay Buccaneers  3.133410   2.864284   1.094   0.2747    
-    ## OpponentTennessee Titans     -0.113387   2.857580  -0.040   0.9684    
-    ## OpponentWashington Redskins   1.870148   2.795056   0.669   0.5039    
-    ## TP                            0.068697   0.004805  14.297  < 2e-16 ***
-    ## TR                            0.080109   0.007587  10.559  < 2e-16 ***
-    ## TT                           -1.941170   0.289526  -6.705 7.93e-11 ***
-    ## OP                            0.009231   0.004867   1.897   0.0587 .  
-    ## OR                           -0.010140   0.007338  -1.382   0.1678    
-    ## OT                            2.105152   0.289487   7.272 2.27e-12 ***
+    ## (Intercept)                  -5.126548   3.382498  -1.516   0.1305    
+    ## TeamAtlanta Falcons           0.865903   2.827493   0.306   0.7596    
+    ## TeamBaltimore Ravens         -0.049859   2.733342  -0.018   0.9855    
+    ## TeamBuffalo Bills            -2.884724   2.706869  -1.066   0.2873    
+    ## TeamCarolina Panthers        -1.761300   2.839251  -0.620   0.5354    
+    ## TeamChicago Bears             0.544416   2.690828   0.202   0.8398    
+    ## TeamCincinnati Bengals        4.375839   2.784515   1.571   0.1170    
+    ## TeamCleveland Browns         -3.003653   2.688836  -1.117   0.2647    
+    ## TeamDallas Cowboys           -0.555374   2.704989  -0.205   0.8374    
+    ## TeamDenver Broncos           -4.404600   2.821650  -1.561   0.1194    
+    ## TeamDetroit Lions            -0.510607   2.737660  -0.187   0.8521    
+    ## TeamGreen Bay Packers        -0.875749   2.833805  -0.309   0.7575    
+    ## TeamHouston Texans           -0.367888   2.731737  -0.135   0.8929    
+    ## TeamIndianapolis Colts        1.057091   2.803087   0.377   0.7063    
+    ## TeamJacksonville Jaguars     -2.626541   2.791131  -0.941   0.3473    
+    ## TeamKansas City Chiefs        6.765927   2.646054   2.557   0.0110 *  
+    ## TeamLos Angeles Chargers      2.646638   2.729071   0.970   0.3328    
+    ## TeamLos Angeles Rams          4.734194   2.855366   1.658   0.0982 .  
+    ## TeamMiami Dolphins           -0.173421   2.640617  -0.066   0.9477    
+    ## TeamMinnesota Vikings        -0.745475   2.733509  -0.273   0.7852    
+    ## TeamNew England Patriots     -0.910910   2.676382  -0.340   0.7338    
+    ## TeamNew Orleans Saints        4.712795   2.795463   1.686   0.0927 .  
+    ## TeamNew York Giants           1.455695   2.793778   0.521   0.6027    
+    ## TeamNew York Jets             0.346904   2.754194   0.126   0.8998    
+    ## TeamOakland Raiders          -1.779206   3.069984  -0.580   0.5626    
+    ## TeamPhiladelphia Eagles      -1.328978   2.759949  -0.482   0.6304    
+    ## TeamPittsburgh Steelers       2.104625   2.817877   0.747   0.4556    
+    ## TeamSan Francisco 49ers       1.516286   2.754159   0.551   0.5823    
+    ## TeamSeattle Seahawks          0.585574   2.730038   0.214   0.8303    
+    ## TeamTampa Bay Buccaneers     -0.941684   2.769838  -0.340   0.7341    
+    ## TeamTennessee Titans         -0.489427   2.686685  -0.182   0.8556    
+    ## TeamWashington Redskins      -0.350608   2.799352  -0.125   0.9004    
+    ## OpponentAtlanta Falcons       3.517678   2.950989   1.192   0.2340    
+    ## OpponentBaltimore Ravens     -0.523656   2.770785  -0.189   0.8502    
+    ## OpponentBuffalo Bills         6.247599   2.786976   2.242   0.0256 *  
+    ## OpponentCarolina Panthers     1.239037   2.855206   0.434   0.6646    
+    ## OpponentChicago Bears         1.410058   2.719824   0.518   0.6045    
+    ## OpponentCincinnati Bengals    2.766983   2.762498   1.002   0.3172    
+    ## OpponentCleveland Browns     -1.240641   2.816106  -0.441   0.6598    
+    ## OpponentDallas Cowboys        1.407593   2.742840   0.513   0.6081    
+    ## OpponentDenver Broncos       -1.155348   2.728565  -0.423   0.6722    
+    ## OpponentDetroit Lions         1.597834   2.722446   0.587   0.5576    
+    ## OpponentGreen Bay Packers     2.105126   2.822929   0.746   0.4563    
+    ## OpponentHouston Texans        1.990777   3.029228   0.657   0.5115    
+    ## OpponentIndianapolis Colts   -0.693819   2.754145  -0.252   0.8012    
+    ## OpponentJacksonville Jaguars -1.253949   2.737363  -0.458   0.6472    
+    ## OpponentKansas City Chiefs    2.054135   2.833087   0.725   0.4689    
+    ## OpponentLos Angeles Chargers  0.506250   2.816866   0.180   0.8575    
+    ## OpponentLos Angeles Rams      2.212622   2.703081   0.819   0.4136    
+    ## OpponentMiami Dolphins        3.300458   2.805891   1.176   0.2403    
+    ## OpponentMinnesota Vikings     0.413526   2.849855   0.145   0.8847    
+    ## OpponentNew England Patriots -0.060297   2.750241  -0.022   0.9825    
+    ## OpponentNew Orleans Saints    1.824516   3.081440   0.592   0.5542    
+    ## OpponentNew York Giants       3.105605   2.745672   1.131   0.2588    
+    ## OpponentNew York Jets         3.133113   2.849451   1.100   0.2723    
+    ## OpponentOakland Raiders       3.473412   2.882211   1.205   0.2290    
+    ## OpponentPhiladelphia Eagles  -3.030111   2.773193  -1.093   0.2753    
+    ## OpponentPittsburgh Steelers  -0.573455   2.991013  -0.192   0.8481    
+    ## OpponentSan Francisco 49ers   1.560707   2.705871   0.577   0.5644    
+    ## OpponentSeattle Seahawks      1.541158   2.765227   0.557   0.5776    
+    ## OpponentTampa Bay Buccaneers  0.015818   2.944354   0.005   0.9957    
+    ## OpponentTennessee Titans      0.615402   2.821026   0.218   0.8274    
+    ## OpponentWashington Redskins   0.918930   2.914950   0.315   0.7528    
+    ## TP                            0.065274   0.004869  13.406  < 2e-16 ***
+    ## TR                            0.076338   0.007261  10.513  < 2e-16 ***
+    ## TT                           -1.842118   0.300103  -6.138 2.23e-09 ***
+    ## OP                            0.012319   0.004767   2.584   0.0102 *  
+    ## OR                           -0.004595   0.007399  -0.621   0.5349    
+    ## OT                            2.250215   0.291226   7.727 1.14e-13 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 6.372 on 356 degrees of freedom
-    ## Multiple R-squared:  0.6856, Adjusted R-squared:  0.6255 
-    ## F-statistic: 11.41 on 68 and 356 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 6.431 on 356 degrees of freedom
+    ## Multiple R-squared:  0.6682, Adjusted R-squared:  0.6048 
+    ## F-statistic: 10.54 on 68 and 356 DF,  p-value: < 2.2e-16
     ## 
     ## 
     ## Response OS :
@@ -226,86 +227,86 @@ summary(m2)
     ##     OT, data = training)
     ## 
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -14.2770  -3.4825   0.0492   3.2401  19.5731 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -14.558  -3.723  -0.009   3.705  18.565 
     ## 
     ## Coefficients:
     ##                               Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)                  -3.520273   3.119785  -1.128   0.2599    
-    ## TeamAtlanta Falcons           0.933583   2.700109   0.346   0.7297    
-    ## TeamBaltimore Ravens         -3.396578   2.502667  -1.357   0.1756    
-    ## TeamBuffalo Bills             2.283921   2.529902   0.903   0.3673    
-    ## TeamCarolina Panthers        -1.316667   2.512530  -0.524   0.6006    
-    ## TeamChicago Bears            -1.548689   2.565587  -0.604   0.5465    
-    ## TeamCincinnati Bengals       -0.187548   2.504317  -0.075   0.9403    
-    ## TeamCleveland Browns         -1.697694   2.551611  -0.665   0.5063    
-    ## TeamDallas Cowboys           -1.056099   2.461159  -0.429   0.6681    
-    ## TeamDenver Broncos           -4.633021   2.559871  -1.810   0.0712 .  
-    ## TeamDetroit Lions             0.074542   2.784579   0.027   0.9787    
-    ## TeamGreen Bay Packers         0.254457   2.583964   0.098   0.9216    
-    ## TeamHouston Texans           -2.237694   2.670611  -0.838   0.4027    
-    ## TeamIndianapolis Colts       -3.504158   2.459077  -1.425   0.1550    
-    ## TeamJacksonville Jaguars     -4.952873   2.641872  -1.875   0.0616 .  
-    ## TeamKansas City Chiefs       -2.589482   2.562482  -1.011   0.3129    
-    ## TeamLos Angeles Chargers     -1.496597   2.457475  -0.609   0.5429    
-    ## TeamLos Angeles Rams          0.396617   2.489166   0.159   0.8735    
-    ## TeamMiami Dolphins            0.069001   2.558601   0.027   0.9785    
-    ## TeamMinnesota Vikings         0.230919   2.590379   0.089   0.9290    
-    ## TeamNew England Patriots     -3.482756   2.498184  -1.394   0.1642    
-    ## TeamNew Orleans Saints       -1.313050   2.490493  -0.527   0.5984    
-    ## TeamNew York Giants          -0.453394   2.662657  -0.170   0.8649    
-    ## TeamNew York Jets             3.207132   2.596301   1.235   0.2175    
-    ## TeamOakland Raiders          -0.150007   2.616711  -0.057   0.9543    
-    ## TeamPhiladelphia Eagles      -5.506758   2.456415  -2.242   0.0256 *  
-    ## TeamPittsburgh Steelers      -2.966766   2.597640  -1.142   0.2542    
-    ## TeamSan Francisco 49ers       0.251124   2.563626   0.098   0.9220    
-    ## TeamSeattle Seahawks          0.850755   2.536210   0.335   0.7375    
-    ## TeamTampa Bay Buccaneers     -1.871530   2.714359  -0.689   0.4910    
-    ## TeamTennessee Titans         -4.214661   2.559371  -1.647   0.1005    
-    ## TeamWashington Redskins       1.774686   2.541519   0.698   0.4855    
-    ## OpponentAtlanta Falcons      -0.875226   2.728109  -0.321   0.7485    
-    ## OpponentBaltimore Ravens      1.762371   3.027073   0.582   0.5608    
-    ## OpponentBuffalo Bills        -0.923802   2.733559  -0.338   0.7356    
-    ## OpponentCarolina Panthers    -3.775607   2.777811  -1.359   0.1749    
-    ## OpponentChicago Bears         0.975845   2.714956   0.359   0.7195    
-    ## OpponentCincinnati Bengals    3.227797   2.601829   1.241   0.2156    
-    ## OpponentCleveland Browns     -2.679317   2.650719  -1.011   0.3128    
-    ## OpponentDallas Cowboys       -1.206638   2.577811  -0.468   0.6400    
-    ## OpponentDenver Broncos       -2.627022   2.763353  -0.951   0.3424    
-    ## OpponentDetroit Lions        -0.717911   2.700386  -0.266   0.7905    
-    ## OpponentGreen Bay Packers    -2.421282   2.666512  -0.908   0.3645    
-    ## OpponentHouston Texans       -0.108203   2.686735  -0.040   0.9679    
-    ## OpponentIndianapolis Colts    0.892208   2.755924   0.324   0.7463    
-    ## OpponentJacksonville Jaguars -1.646490   2.624405  -0.627   0.5308    
-    ## OpponentKansas City Chiefs    5.818405   2.648147   2.197   0.0287 *  
-    ## OpponentLos Angeles Chargers  3.152819   2.578796   1.223   0.2223    
-    ## OpponentLos Angeles Rams      3.362793   2.646156   1.271   0.2046    
-    ## OpponentMiami Dolphins        1.951790   2.895417   0.674   0.5007    
-    ## OpponentMinnesota Vikings    -2.517083   2.712319  -0.928   0.3540    
-    ## OpponentNew England Patriots -2.175639   2.840945  -0.766   0.4443    
-    ## OpponentNew Orleans Saints    3.725539   2.735003   1.362   0.1740    
-    ## OpponentNew York Giants       1.398968   2.712285   0.516   0.6063    
-    ## OpponentNew York Jets         3.910475   2.654573   1.473   0.1416    
-    ## OpponentOakland Raiders      -2.298060   2.743104  -0.838   0.4027    
-    ## OpponentPhiladelphia Eagles  -1.487968   2.610637  -0.570   0.5691    
-    ## OpponentPittsburgh Steelers   1.671091   2.730620   0.612   0.5409    
-    ## OpponentSan Francisco 49ers   1.990773   2.827349   0.704   0.4818    
-    ## OpponentSeattle Seahawks      0.845048   2.706607   0.312   0.7551    
-    ## OpponentTampa Bay Buccaneers  1.052230   2.765626   0.380   0.7038    
-    ## OpponentTennessee Titans      0.095406   2.759153   0.035   0.9724    
-    ## OpponentWashington Redskins  -1.011977   2.698782  -0.375   0.7079    
-    ## TP                            0.012186   0.004639   2.627   0.0090 ** 
-    ## TR                           -0.008358   0.007326  -1.141   0.2547    
-    ## TT                            2.131073   0.279553   7.623 2.27e-13 ***
-    ## OP                            0.070897   0.004699  15.087  < 2e-16 ***
-    ## OR                            0.077860   0.007085  10.990  < 2e-16 ***
-    ## OT                           -1.956775   0.279516  -7.001 1.28e-11 ***
+    ## (Intercept)                  -4.412897   3.352891  -1.316  0.18897    
+    ## TeamAtlanta Falcons          -0.738012   2.802743  -0.263  0.79246    
+    ## TeamBaltimore Ravens         -2.819506   2.709416  -1.041  0.29875    
+    ## TeamBuffalo Bills             2.764562   2.683175   1.030  0.30355    
+    ## TeamCarolina Panthers        -0.324423   2.814399  -0.115  0.90829    
+    ## TeamChicago Bears            -0.628798   2.667275  -0.236  0.81377    
+    ## TeamCincinnati Bengals       -0.997604   2.760141  -0.361  0.71799    
+    ## TeamCleveland Browns         -2.942784   2.665300  -1.104  0.27029    
+    ## TeamDallas Cowboys           -1.600108   2.681312  -0.597  0.55104    
+    ## TeamDenver Broncos           -3.970514   2.796952  -1.420  0.15660    
+    ## TeamDetroit Lions            -0.263935   2.713696  -0.097  0.92257    
+    ## TeamGreen Bay Packers         2.491574   2.809000   0.887  0.37568    
+    ## TeamHouston Texans           -1.048631   2.707825  -0.387  0.69880    
+    ## TeamIndianapolis Colts       -3.632120   2.778551  -1.307  0.19199    
+    ## TeamJacksonville Jaguars     -1.397727   2.766700  -0.505  0.61373    
+    ## TeamKansas City Chiefs       -0.806471   2.622893  -0.307  0.75866    
+    ## TeamLos Angeles Chargers     -1.239725   2.705183  -0.458  0.64703    
+    ## TeamLos Angeles Rams          1.711943   2.830373   0.605  0.54567    
+    ## TeamMiami Dolphins            1.406479   2.617503   0.537  0.59137    
+    ## TeamMinnesota Vikings        -0.480932   2.709582  -0.177  0.85922    
+    ## TeamNew England Patriots     -2.864687   2.652955  -1.080  0.28096    
+    ## TeamNew Orleans Saints       -0.464112   2.770994  -0.167  0.86708    
+    ## TeamNew York Giants           2.444911   2.769324   0.883  0.37791    
+    ## TeamNew York Jets             0.160208   2.730086   0.059  0.95324    
+    ## TeamOakland Raiders           1.871458   3.043112   0.615  0.53896    
+    ## TeamPhiladelphia Eagles      -5.741303   2.735791  -2.099  0.03656 *  
+    ## TeamPittsburgh Steelers      -3.008367   2.793212  -1.077  0.28220    
+    ## TeamSan Francisco 49ers      -0.887427   2.730051  -0.325  0.74533    
+    ## TeamSeattle Seahawks         -0.340553   2.706141  -0.126  0.89993    
+    ## TeamTampa Bay Buccaneers     -1.495634   2.745593  -0.545  0.58627    
+    ## TeamTennessee Titans         -3.458978   2.663168  -1.299  0.19485    
+    ## TeamWashington Redskins       1.261815   2.774849   0.455  0.64958    
+    ## OpponentAtlanta Falcons       3.461617   2.925158   1.183  0.23744    
+    ## OpponentBaltimore Ravens      2.890054   2.746532   1.052  0.29340    
+    ## OpponentBuffalo Bills         1.281876   2.762581   0.464  0.64292    
+    ## OpponentCarolina Panthers     2.354713   2.830214   0.832  0.40597    
+    ## OpponentChicago Bears         3.503325   2.696017   1.299  0.19463    
+    ## OpponentCincinnati Bengals    5.779460   2.738317   2.111  0.03550 *  
+    ## OpponentCleveland Browns      0.876996   2.791456   0.314  0.75357    
+    ## OpponentDallas Cowboys        1.193852   2.718832   0.439  0.66085    
+    ## OpponentDenver Broncos       -1.014507   2.704681  -0.375  0.70781    
+    ## OpponentDetroit Lions         1.414091   2.698616   0.524  0.60060    
+    ## OpponentGreen Bay Packers     0.336968   2.798219   0.120  0.90422    
+    ## OpponentHouston Texans        4.001889   3.002713   1.333  0.18346    
+    ## OpponentIndianapolis Colts    3.676228   2.730037   1.347  0.17897    
+    ## OpponentJacksonville Jaguars  0.556980   2.713402   0.205  0.83748    
+    ## OpponentKansas City Chiefs    8.717115   2.808288   3.104  0.00206 ** 
+    ## OpponentLos Angeles Chargers  6.199469   2.792209   2.220  0.02703 *  
+    ## OpponentLos Angeles Rams      5.766260   2.679421   2.152  0.03206 *  
+    ## OpponentMiami Dolphins        3.266679   2.781330   1.175  0.24098    
+    ## OpponentMinnesota Vikings     2.465629   2.824910   0.873  0.38335    
+    ## OpponentNew England Patriots  1.915936   2.726167   0.703  0.48264    
+    ## OpponentNew Orleans Saints    8.515852   3.054467   2.788  0.00559 ** 
+    ## OpponentNew York Giants       3.283758   2.721638   1.207  0.22841    
+    ## OpponentNew York Jets         5.068439   2.824510   1.794  0.07359 .  
+    ## OpponentOakland Raiders       1.979642   2.856982   0.693  0.48882    
+    ## OpponentPhiladelphia Eagles   1.786759   2.748919   0.650  0.51612    
+    ## OpponentPittsburgh Steelers   4.296154   2.964832   1.449  0.14821    
+    ## OpponentSan Francisco 49ers   3.233480   2.682186   1.206  0.22880    
+    ## OpponentSeattle Seahawks      2.802083   2.741022   1.022  0.30734    
+    ## OpponentTampa Bay Buccaneers  3.578070   2.918581   1.226  0.22102    
+    ## OpponentTennessee Titans      3.236843   2.796333   1.158  0.24783    
+    ## OpponentWashington Redskins  -2.035609   2.889435  -0.705  0.48158    
+    ## TP                            0.005587   0.004826   1.158  0.24778    
+    ## TR                           -0.008681   0.007198  -1.206  0.22855    
+    ## TT                            2.258167   0.297476   7.591 2.81e-13 ***
+    ## OP                            0.067749   0.004725  14.337  < 2e-16 ***
+    ## OR                            0.077952   0.007334  10.629  < 2e-16 ***
+    ## OT                           -1.960612   0.288677  -6.792 4.66e-11 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 6.152 on 356 degrees of freedom
-    ## Multiple R-squared:  0.6981, Adjusted R-squared:  0.6404 
-    ## F-statistic:  12.1 on 68 and 356 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 6.374 on 356 degrees of freedom
+    ## Multiple R-squared:  0.6624, Adjusted R-squared:  0.5979 
+    ## F-statistic: 10.27 on 68 and 356 DF,  p-value: < 2.2e-16
 
 ``` r
 anova(m2)
@@ -314,15 +315,15 @@ anova(m2)
     ## Analysis of Variance Table
     ## 
     ##              Df  Pillai approx F num Df den Df    Pr(>F)    
-    ## (Intercept)   1 0.96403   4756.7      2    355 < 2.2e-16 ***
-    ## Team         31 0.74036      6.7     62    712 < 2.2e-16 ***
-    ## Opponent     31 0.63946      5.4     62    712 < 2.2e-16 ***
-    ## TP            1 0.28470     70.6      2    355 < 2.2e-16 ***
-    ## TR            1 0.40738    122.0      2    355 < 2.2e-16 ***
-    ## TT            1 0.28602     71.1      2    355 < 2.2e-16 ***
-    ## OP            1 0.27656     67.9      2    355 < 2.2e-16 ***
-    ## OR            1 0.30725     78.7      2    355 < 2.2e-16 ***
-    ## OT            1 0.28196     69.7      2    355 < 2.2e-16 ***
+    ## (Intercept)   1 0.96282   4596.5      2    355 < 2.2e-16 ***
+    ## Team         31 0.66583      5.7     62    712 < 2.2e-16 ***
+    ## Opponent     31 0.56511      4.5     62    712 < 2.2e-16 ***
+    ## TP            1 0.24156     56.5      2    355 < 2.2e-16 ***
+    ## TR            1 0.37191    105.1      2    355 < 2.2e-16 ***
+    ## TT            1 0.25264     60.0      2    355 < 2.2e-16 ***
+    ## OP            1 0.25495     60.7      2    355 < 2.2e-16 ***
+    ## OR            1 0.27915     68.7      2    355 < 2.2e-16 ***
+    ## OT            1 0.28122     69.4      2    355 < 2.2e-16 ***
     ## Residuals   356                                             
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -362,11 +363,11 @@ for (i in 1:nrow(df)){
 error_plot(validation)
 ```
 
-[](Super_Bowl_LIII_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](Super_Bowl_LIII_files/figure-markdown_github/valerr-1.png)
 
     ## [1] "Average RMSE is"
 
-    ## [1] 6.80082
+    ## [1] 6.587461
 
 #### 3.4 Testing!
 
@@ -380,11 +381,11 @@ testing <- cbind.data.frame(testing, valt)
 error_plot(testing)
 ```
 
-![](Super_Bowl_LIII_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](Super_Bowl_LIII_files/figure-markdown_github/testerr-1.png)
 
     ## [1] "Average RMSE is"
 
-    ## [1] 6.757044
+    ## [1] 6.242899
 
 Lower error on the testing set!
 
@@ -430,9 +431,9 @@ scenarios
     ## 2 Los Angeles Rams New England Patriots 223.285  99.645 0.705 224.25
     ## 3 Los Angeles Rams New England Patriots 416.000 231.000 4.000 442.00
     ##        OR    OT    scenario PredictedTS PredictedOS
-    ## 1 122.865 1.415 Average-Avg    27.29937    24.82009
-    ## 2 102.980 0.970     Bad-Avg    22.89805    20.10982
-    ## 3 273.000 4.000   Best-Best    46.92815    51.12882
+    ## 1 122.865 1.415 Average-Avg    29.41641    26.92847
+    ## 2 102.980 0.970     Bad-Avg    24.90215    22.50805
+    ## 3 273.000 4.000   Best-Best    50.15841    51.95037
 
 ``` r
   datafr <- data.frame(scenarios[1,10:11])

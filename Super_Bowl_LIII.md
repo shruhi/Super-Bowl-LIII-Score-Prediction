@@ -62,7 +62,7 @@ summary(data)
 ``` r
 pairs(data)
 ```
-
+ReadData-1.png
 ![](Super_Bowl_LIII_files/figure-markdown_github/ReadData-1.png)
 
 ### 2. Assumptions for a regression

@@ -62,8 +62,7 @@ summary(data)
 ``` r
 pairs(data)
 ```
-ReadData-1.png
-![](Super_Bowl_LIII_files/figure-markdown_github/ReadData-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/ReadData-1.png)
 
 ### 2. Assumptions for a regression
 
@@ -77,17 +76,17 @@ It means that the variance of the dependent variable(Y) is the same for all valu
 
 ### For Team Score
 
-![](Super_Bowl_LIII_files/figure-markdown_github/TStest-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/TStest-1.png)
 
 #### For Opponent Score
 
-![](Super_Bowl_LIII_files/figure-markdown_github/OSTest-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/OSTest-1.png)
 
 > Multicolinearity
 
 If any of the variables are correlated, it gives causes a problem in our regression model. To verfiy that they are not correlate, we use a simple correlation matrix.
 
-![](Super_Bowl_LIII_files/figure-markdown_github/corrplot-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/corrplot-1.png)
 
 We don't want correlated variables and total yards for both team and opponent are highly correlated. We won't be using them in our model.
 Our requirements to do a linear regression are satisfied!
@@ -363,7 +362,7 @@ for (i in 1:nrow(df)){
 error_plot(validation)
 ```
 
-![](Super_Bowl_LIII_files/figure-markdown_github/valerr-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/valerr-1.png)
 
     ## [1] "Average RMSE is"
 
@@ -381,7 +380,7 @@ testing <- cbind.data.frame(testing, valt)
 error_plot(testing)
 ```
 
-![](Super_Bowl_LIII_files/figure-markdown_github/testerr-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/testerr-1.png)
 
     ## [1] "Average RMSE is"
 

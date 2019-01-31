@@ -96,8 +96,7 @@ Our requirements to do a linear regression are satisfied!
 
 #### 3.1 Creating training, validation and testing sets
 
-Since this is a relatively smaller dataset, we split it by 80%-10%-10% into training, validation and testing sets. The regression is trained on training set, predicted values for a combination of scores is run on the validation set and finally, a final result is obtained using the test set.
-
+80%-10%-10% split into training, validation and testing sets
 ``` r
 train   <- 0.8
 validate <- 0.1
@@ -363,7 +362,7 @@ for (i in 1:nrow(df)){
 error_plot(validation)
 ```
 
-![](Super_Bowl_LIII_files/figure-markdown_github/unnamed-chunk-7-1.png)
+[](Super_Bowl_LIII_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
     ## [1] "Average RMSE is"
 

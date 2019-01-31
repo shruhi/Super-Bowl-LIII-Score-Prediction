@@ -6,8 +6,6 @@ Multivariate Multiple Regression to predict the Super Bowl LIII
 
 ### 1. Looking at the data
 
-First we import the data and take an exploratory look at the summary statistics for the 2018 Season. We need to make sure there are no missing values.
-
 The variables are:
 
 Team: Team name
@@ -18,6 +16,8 @@ OS: opponent score (to predict)
 TP: team passing (in yards) TR: team rushing (in yards) TY: total yards TT: Team turnover
 OP: opponent passing (in yards) OR: opponent rushing (in yards) OY: total yards OT: opponent turnover
 
+Make sure no missing data.
+An intital exploratory look using pairs()
 We want to predict the TS and OS for LA Rams and New England Patriots by using the team statistics as predictor variables.
 
 ``` r
@@ -63,40 +63,42 @@ summary(data)
 pairs(data)
 ```
 
-![](Super_Bowl_LIII_files/figure-markdown_github/ReadData-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/ReadData-1.png)
 
 ### 2. Assumptions for a regression
 
-In order to do a linear regression, the following assumptions are made: &gt;Linear Relatioship
+In order to do a linear regression, the following assumptions are made: 
+> Linear Relatioship
 
 The dependent variables and independent variables have a linear relatioship.
 
 > Homoscedasticity
 
-It means that the variance of the dependent variable(Y) is the same for all values of predictor variables (X) To check both of these, we use scatterplots. A quick look gives us an idea into if a linear regression is suitable here.
+It means that the variance of the dependent variable(Y) is the same for all values of predictor variables (X) To check both of these, we use scatterplots.
 
 ### For Team Score
 
-![](Super_Bowl_LIII_files/figure-markdown_github/TStest-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/TStest-1.png)
 
 #### For Opponent Score
 
-![](Super_Bowl_LIII_files/figure-markdown_github/OSTest-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/OSTest-1.png)
 
 > Multicolinearity
 
-If any of the variables are correlated, it gives causes a problem in our regression model. To verfiy that they are not correlate, we use a simple correlation matrix.
+If any of the variables are correlated, it gives causes a problem in regression models. To verfiy that they are not correlate, use a simple correlation matrix.
 
-![](Super_Bowl_LIII_files/figure-markdown_github/corrplot-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/corrplot-1.png)
 
-We don't want correlated variables and total yards for both team and opponent are highly correlated. We won't be using them in our model.
-Our requirements to do a linear regression are satisfied!
+Total yards for both team and opponent are highly correlated with passing yards. We won't be using them in our model.
+
+Requirements to do a linear regression are satisfied!
 
 ### 3. Multivariate Regression
 
 #### 3.1 Creating training, validation and testing sets
 
-Since this is a relatively smaller dataset, we split it by 80%-10%-10% into training, validation and testing sets. The regression is trained on training set, predicted values for a combination of scores is run on the validation set and finally, a final result is obtained using the test set.
+This is a supervised machine-learning method. The data is split 80%-10%-10% into training, validation and testing sets. 
 
 ``` r
 train   <- 0.8
@@ -124,7 +126,9 @@ testing <- data[testindex,]
 
 #### 3.2 Training the model
 
-We want to model the variables Team and Opponent Score using the other variables as predictors and view the results. Using anova() we test the covariance between the coefficients in the two models and remove the non-useful predictors. This is run on the training set.
+Dependent variables: Team and Opponent Score 
+Predictors: Team Statistics 
+Using anova() we test the covariance between the coefficients in the two models and remove the non-useful predictors.
 
 ``` r
 m2 <- lm(cbind(TS, OS) ~ Team + Opponent + TP + TR + TT + OP + OR + OT, data = training)
@@ -330,7 +334,8 @@ anova(m2)
 
 #### 3.3 Validate it!
 
-To test the accuracy of this model, we validate it on the validation set. To evaluate it, we need a parameter. We choose the root mean square error (RMSE). The errors are expected to be normally distributed.
+To evaluate validation set, the average of root mean square error (RMSE) is used.
+The errors, i.e. variance is expected to be normally distributed.
 
 ``` r
 val <- data.frame(predict(m2, validation, type = "response"))
@@ -363,7 +368,7 @@ for (i in 1:nrow(df)){
 error_plot(validation)
 ```
 
-![](Super_Bowl_LIII_files/figure-markdown_github/valerr-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/valerr-1.png)
 
     ## [1] "Average RMSE is"
 
@@ -371,7 +376,7 @@ error_plot(validation)
 
 #### 3.4 Testing!
 
-The next step to this supervised learning model is to run this model on our testing set and check the accuracy for it.
+Final step - testing and finding accuracy using RMSE.
 
 ``` r
 valt <- data.frame(predict(m2, testing, type = "response"))
@@ -381,7 +386,7 @@ testing <- cbind.data.frame(testing, valt)
 error_plot(testing)
 ```
 
-![](Super_Bowl_LIII_files/figure-markdown_github/testerr-1.png)
+![](https://github.com/shruhi/Super-Bowl-LIII-Score-Prediction/blob/master/testerr-1.png)
 
     ## [1] "Average RMSE is"
 
@@ -393,11 +398,11 @@ Lower error on the testing set!
 
 > What-if Scenarios
 
-I will run a bunch of what-if scenarios for the prediciton. First let's start with the obvious. Take the average statistics for both teams and try to predict the outcome.
-Second, based on the experience, take the 1st quartile performance of Rams and an average performace by Patriots.
-Next we have a best case scenario where both teams give their best performance.
+First let's start with the obvious. Take the average statistics for both teams and try to predict the outcome.
+Second, considering experience advantage, take an average performace by Patriots and the 1st quartile performance of Rams.
+Next, a best case scenario where both teams give their best performance.
 
-To really see an avergae performance, consensus scores are formulated. E.g. the average Team passing yards for Rams would be an average of TP(Rams) and OP(Patriots) and so forth. These data manipulations are done in excel and the csv can be imported for predictions to be made.
+To really predict an avergae performance, consensus scores are formulated. E.g. the average Team passing yards for Rams would be an average of TP(Rams) and OP(Patriots) and so forth. These data manipulations are done in excel and the csv can be imported for predictions to be made.
 
 ``` r
 scenarios <- read.csv("scenarios.csv")
@@ -443,10 +448,9 @@ scenarios
 
 Final Prediction
 ----------------
+For this prediction, consider average performance of both teams this season.
 
-We have a no. of poosibilities in this manner. For this prediction, I will consider average performance of both teams this season.
-
-For more accuracy, the model is reiterated 5 more times to get five final predictions and then the average is taken for a final prediction:
+For more accuracy, the model is iterated 5 more times to get five final predictions and the average is taken for a final prediction:
 
     ##    X PredictedTS PredictedOS
     ## 1  1    28.18823    25.25942
